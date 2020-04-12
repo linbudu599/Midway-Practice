@@ -25,3 +25,4 @@ const c = new C();
 // 依赖对象的实例化是自动的
 
 console.log(container.get("a") instanceof A)
+

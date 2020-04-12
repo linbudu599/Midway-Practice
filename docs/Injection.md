@@ -1,4 +1,4 @@
-# IoC
+# How Injection Works
 
 > Inversion of Control
 
@@ -259,3 +259,69 @@ export class BaseService {
 ```
 
 这么神奇的吗
+
+## IoC
+
+DI 是实现 IoC 的一种方式, 在 IoC 思想中, 存在一个调度者(容器), 它拥有系统内所有对象, 在一个对象被创建时, 它所需要的依赖会被注入到对象中. 而不是硬编码在代码中.
+
+"哪些控制被反转了?"
+
+依赖对象的获得. 不再是由每个对象自己去获取与其合作的对象.
+
+IoC 意味着将设计好的对象交给容器控制, 容器控制对象, 主要控制了其外部资源获取. 为什么叫反转? 因为对象只是被动的接收依赖.
+
+### 在 JS 中实现 IoC
+
+在前面 Express 项目中我们可以看到其实现不可缺少的部分, `Reflect`, 以及 `reflect-metadata`. 后者主要是在`Reflect`对象上进行了扩展, 增强了元数据的能力.
+
+```js
+Reflect.defineMetadata(metadataKey, metadataValue, C.prototype, "method");
+```
+
+在这里元数据会被定义到**C 的原型对象**上.
+
+在前面的例子里, 我们主要在方法装饰器中收集(定义)了元数据, 包括该方法对应的 **路径** 与 **请求方式**, 然后在 `@controller` 中, 我们以原型对象上获取到的键去把元数据取出来, 并创建路由与其对应的 handler.
+
+几个疑惑:
+
+- 元数据是储存在类上的吗? 或者说以类/对象为单位?
+- `TypeGraphQL`的参数装饰器也是预先收集 schema 定义然后在收集完元数据后生成 SDL?
+- 元数据的加载使用优先级比类中代码更高(因为装饰器执行更早).
+
+常用 API
+
+- defineMetadata
+- hasMetadata
+- hasOwnMetadata
+- getMetadata
+- getOwnMetadata
+- getMetadataKeys
+- getOwnMetadataKeys
+- deleteMetadata
+
+还有一种装饰器写法, 但我觉得可读性不太好
+
+## 整理
+
+大致整理一下我认为`Injection`做了什么:
+
+- 依赖注入, 在`reflect-metadata`的基础上更贴近了 IoC 的思想, 尤其是核心的容器概念. 这一点在`TypeDI+TypeORM+TypeGraphQL`的协作中也有体现:
+
+```typescript
+TypeORM.useContainer(Container);
+
+async function initialize() {
+  await TypeORM.createConnection({
+    // ...database config
+  });
+
+  const schema = await buildSchema({
+    container: Container,
+  });
+```
+
+虽然还没有源码但是大致能猜出来, TypeGraphQL 会去容器中收集对象信息, 然后 build schema, 那么`@Query`这种 API 会把数据注入到统一容器? 按照这个代码, 全局的容器是统一的. (好像这才是正常的? 不然一堆容器更不好维护)
+
+- 装饰器注入, 不需要每次手动绑定(`bind`)再`getAsync`拿到对象, 使用`@provide`来使得类会被容器自动扫描并绑定. `@inject`用于对属性注入, 会去容器中查找定义并绑定到属性?
+
+- 其他功能, 如异步初始化/动态注入.
