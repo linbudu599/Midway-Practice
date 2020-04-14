@@ -15,9 +15,14 @@ export interface IUserResult {
   email?: string;
 }
 
+export interface ITestResult {
+  res: number;
+}
+
 /**
  * @description User-Service abstractions
  */
 export interface IUserService {
   getUser(options: IUserOptions): Promise<IUserResult>;
+  testService(params: string): Promise<ITestResult>;
 }
