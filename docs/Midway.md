@@ -78,20 +78,17 @@ module.exports = function (app) {
 
 大致熟悉了一下使用, 感觉 midwya 还是很有前景的, 装饰器是真香. 但也记录一下几个问题:
 
+需要 Egg 使用经验才能用好 midway
+
 - 文档不是很适合没有 Egg 使用经验的人, 虽然的确使用 midway 的用户通常也用过 Egg? 但是我这种只使用 Egg 写过普通应用的还是有点疑惑. 同时文档的组织也可以更好一点? 比如提前出现在 demo 里的`@config()`和`@plugin()`
 
 - 感觉有些地方可以稍微解释下, 毕竟一个框架不能只面向中高级开发人员, 如在`service`中是通过`@provide()`加上`controller`中的`@inject()`才完成了依赖收集和依赖注入, 感觉可以放到`injection`文档那一节来作为示例.
 
 - 全局中间件不能使用 Class, 这一点在仓库的 Issue 找到了, 用了一个比较 hack 的方法来解决.
 
-- 路由绑定上下文, 不清楚是不是我的原因无法实现, 提示`ctx.service`仅具有`getter`
-
-- 需要 Egg 使用经验才能用好 midway
 
 ## 剩余
 
-- 框架扩展
-- 插件
 - 测试工具集
 - 构建部署&生产环境
 - SandBox/Pandora 监测
