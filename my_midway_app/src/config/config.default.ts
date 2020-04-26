@@ -23,5 +23,7 @@ export default (appInfo: any) => {
     },
   };
 
+  
+
   return config;
 };

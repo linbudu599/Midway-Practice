@@ -1,0 +1,25 @@
+/**
+ * @description User-Service parameters
+ */
+export interface IUserOptions {
+    id: number;
+}
+/**
+ * @description User-Service response
+ */
+export interface IUserResult {
+    id: number;
+    username: string;
+    phone: string;
+    email?: string;
+}
+export interface ITestResult {
+    res: number;
+}
+/**
+ * @description User-Service abstractions
+ */
+export interface IUserService {
+    getUser(options: IUserOptions): Promise<IUserResult>;
+    testService(params: string): Promise<ITestResult>;
+}

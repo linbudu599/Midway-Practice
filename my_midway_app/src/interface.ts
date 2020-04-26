@@ -1,9 +1,5 @@
-/**
- * @description User-Service parameters
- */
-export interface IUserOptions {
-  id: number;
-}
+import { InsertResult, DeleteResult } from "typeorm";
+import { User } from "./entity/user";
 
 /**
  * @description User-Service response
@@ -15,14 +11,21 @@ export interface IUserResult {
   email?: string;
 }
 
-export interface ITestResult {
-  res: number;
-}
-
 /**
  * @description User-Service abstractions
  */
 export interface IUserService {
-  getUser(options: IUserOptions): Promise<IUserResult>;
-  testService(params: string): Promise<ITestResult>;
+  getUser(): Promise<IUser[]>;
+  insertUser(): Promise<InsertResult>;
+  searchUser(conditions: searchConditions): Promise<User[]>;
+  deleteUser(uid: number): Promise<DeleteResult>;
+}
+export type searchConditions = Partial<IUser>;
+export interface IUser {
+  uid?: number;
+  name: string;
+  description?: string;
+  age: number;
+  job?: string;
+  isMarried?: boolean;
 }

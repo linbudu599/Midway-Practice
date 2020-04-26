@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "midway": "^1.0.0"
+    "@types/node": "^13.13.2",
+    "midway": "^1.0.0",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
+    "typedi": "^0.8.0",
+    "typeorm": "^0.2.24",
+    "typeorm-typedi-extensions": "^0.2.3"
   },
   "devDependencies": {
     "cross-env": "^6.0.0",
@@ -19,6 +25,7 @@
     "test": "midway-bin test --ts",
     "cov": "midway-bin cov --ts",
     "ci": "midway-bin cov --ts",
-    "build": "midway-bin build -c"
+    "build": "midway-bin build -c",
+    "start_build": "npm run build && cross-env NODE_ENV=development midway-bin dev"
   }
 }
