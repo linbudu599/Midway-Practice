@@ -19,6 +19,7 @@ export interface IUserService {
   insertUser(): Promise<InsertResult>;
   searchUser(conditions: searchConditions): Promise<User[]>;
   deleteUser(uid: number): Promise<DeleteResult>;
+  findByUid(uid: number): Promise<User>;
 }
 export type searchConditions = Partial<IUser>;
 export interface IUser {

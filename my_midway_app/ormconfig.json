@@ -1,0 +1,13 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "111",
+  "database": "midway_test",
+  "synchronize": true,
+  "logging": true,
+  "logger": "advanced-console",
+  "entities": ["src/entity/**/*.ts"],
+  "dropSchema": true
+}

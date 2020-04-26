@@ -14,19 +14,7 @@ class AppBootHook {
 
   async willReady() {
     console.log("===TypeORM Starting===");
-    createConnection({
-      type: "mysql",
-      host: "localhost",
-      port: 3306,
-      username: "root",
-      password: "111",
-      database: "midway_test",
-      entities: [User],
-      synchronize: true,
-      dropSchema: true,
-      logging: true,
-      logger: "advanced-console",
-    })
+    createConnection()
       .then(async (connection) => {
         // insert initialize user info
         console.log("DataBase Connected");
@@ -36,8 +24,6 @@ class AppBootHook {
       })
       .catch((error) => console.log(error));
   }
-
-  async didReady() {}
 }
 
 export default AppBootHook;

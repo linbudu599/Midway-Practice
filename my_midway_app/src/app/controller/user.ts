@@ -1,5 +1,13 @@
-import { Context, controller, get, inject, provide, logger } from "midway";
-import { IUserService } from "../../interface";
+import {
+  Context,
+  controller,
+  get,
+  post,
+  inject,
+  provide,
+  logger,
+} from "midway";
+import { IUserService, searchConditions } from "../../interface";
 
 @provide()
 @controller("/user")
@@ -24,11 +32,26 @@ export class UserController {
     };
   }
 
-  @get("/:id", { middleware: ["SPRouterMiddleware"] })
-  async getUser(): Promise<void> {
-    console.log("GET/ /user/:id");
-    // const user: IUserResult = await this.userService.getUser({ id });
-    // const res: ITestResult = await this.userService.testService("linbudu");
-    // this.ctx.body = { success: true, message: "OK", data: user, res };
+  @post("search")
+  async searchUser(conditions: searchConditions): Promise<void> {
+    console.log("POST /user/search");
+    const res = await this.userService.searchUser(conditions);
+    this.ctx.body = {
+      success: true,
+      message: "Successfully Search User Info",
+      data: res,
+    };
+  }
+
+  @get("/uid/:uid", { middleware: ["SPRouterMiddleware"] })
+  async findByUid(): Promise<void> {
+    const uid = this.ctx.params.uid;
+    console.log(`GET/ /uid/${uid}`);
+    const res = await this.userService.findByUid(uid);
+    this.ctx.body = {
+      success: true,
+      message: "Successfully Search User Info",
+      data: res,
+    };
   }
 }

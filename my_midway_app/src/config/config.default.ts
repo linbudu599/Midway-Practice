@@ -1,4 +1,4 @@
-import path from "path";
+ import path from "path";
 
 export default (appInfo: any) => {
   const config: any = {};
@@ -22,6 +22,10 @@ export default (appInfo: any) => {
       file: path.join(appInfo.root, "logs/own.log"),
     },
   };
+
+  config.typeorm = {
+    
+  }
 
   
 

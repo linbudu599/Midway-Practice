@@ -9,8 +9,8 @@ import { IUserService, searchConditions } from "../interface";
 @provide("userService")
 export class UserService implements IUserService {
   connection: Connection;
-  constructor() // @InjectRepository(User) private readonly userRepository: Repository<User>
-  {
+  constructor() {
+    // @InjectRepository(User) private readonly userRepository: Repository<User>
     // this.userRepository = userRepository;
   }
   // async getUser(options: IUserOptions): Promise<IUserResult> {
@@ -44,7 +44,18 @@ export class UserService implements IUserService {
 
   async searchUser(conditions: searchConditions) {
     console.log("===searchUser Service Invoked===");
-    const result = this.connection.manager.find(User, { ...conditions });
+    const connection = getConnection();
+    console.log(conditions);
+    const result = await connection.manager.find(User, { ...conditions });
+    console.log(result);
+    return result;
+  }
+
+  async findByUid(uid: number): Promise<User> {
+    console.log("===findByUid Service Invoked===");
+    const connection = getConnection();
+    // TODO: return null when uid dose not exist
+    const result = await connection.manager.findOne(User, uid);
     console.log(result);
     return result;
   }
