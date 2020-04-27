@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@types/jest": "^25.2.1",
     "@types/node": "^13.13.2",
+    "jest": "^25.4.0",
     "midway": "^1.0.0",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
+    "ts-jest": "^25.4.0",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.24",
     "typeorm-typedi-extensions": "^0.2.3"
@@ -23,6 +26,7 @@
     "dev": "cross-env NODE_ENV=local midway-bin dev --ts",
     "debug": "cross-env NODE_ENV=local midway-bin debug --ts",
     "test": "midway-bin test --ts",
+    "test:jest": "jest --forceExit",
     "cov": "midway-bin cov --ts",
     "ci": "midway-bin cov --ts",
     "build": "midway-bin build -c",

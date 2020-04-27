@@ -2,7 +2,7 @@ import { provide } from "midway";
 import { Connection, getConnection } from "typeorm";
 import { User } from "../entity/user";
 import { initialData } from "../helper/init";
-import { IUserService, searchConditions } from "../interface";
+import { IUserService, searchConditions, IUTMock } from "../interface";
 
 // import { InjectRepository } from "typeorm-typedi-extensions";
 
@@ -13,19 +13,18 @@ export class UserService implements IUserService {
     // @InjectRepository(User) private readonly userRepository: Repository<User>
     // this.userRepository = userRepository;
   }
-  // async getUser(options: IUserOptions): Promise<IUserResult> {
-  //   const connection = getConnection();
-  //   const res = await connection.manager.insert(User, initialData(5));
-  //   const a = await connection.manager.delete(User,{name:"sds"})
-  //   console.log(res);
-  //   console.log("getConnection Successfully");
-  //   return {
-  //     id: options.id,
-  //     username: "mockedName",
-  //     phone: "12345678901",
-  //     email: "xxx.xxx@xxx.com",
-  //   };
-  // }
+  async uTMockService(id: number): Promise<IUTMock> {
+    return new Promise<IUTMock>((resolve) => {
+      setTimeout(() => {
+        resolve({
+          id: id,
+          username: "mockedName",
+          phone: "12345678901",
+          email: "xxx.xxx@xxx.com",
+        });
+      }, 500);
+    });
+  }
   async getUser() {
     console.log("===getUser Service Invoked===");
     const result = await this.connection.manager.find(User);
