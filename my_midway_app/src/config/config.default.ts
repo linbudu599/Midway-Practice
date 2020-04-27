@@ -1,4 +1,4 @@
- import path from "path";
+import path from "path";
 
 export default (appInfo: any) => {
   const config: any = {};
@@ -17,17 +17,17 @@ export default (appInfo: any) => {
     param: "config for sp router middleware",
   };
 
+  config.home = {
+    key: "Unit Test Mock",
+  };
+
   config.customLogger = {
     onwLogger: {
       file: path.join(appInfo.root, "logs/own.log"),
     },
   };
 
-  config.typeorm = {
-    
-  }
-
-  
+  config.typeorm = {};
 
   return config;
 };

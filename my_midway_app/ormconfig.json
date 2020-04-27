@@ -8,6 +8,5 @@
   "synchronize": true,
   "logging": true,
   "logger": "advanced-console",
-  "entities": ["src/entity/**/*.ts"],
-  "dropSchema": true
+  "entities": ["src/entity/**/*.ts"]
 }

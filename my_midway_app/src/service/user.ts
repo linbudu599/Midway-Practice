@@ -37,7 +37,6 @@ export class UserService implements IUserService {
     console.log("===insertUser Service Invoked===");
     const connection = getConnection();
     const result = connection.manager.insert(User, initialData(5));
-    // const result = this.userRepository.insert(initialData(5));
     console.log(result);
     return result;
   }
