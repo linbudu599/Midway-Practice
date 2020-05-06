@@ -47,4 +47,31 @@
     }
   ```
   
-  
+  Error Info: `Cannot read property 'insert' of undefined`
+
+- Another Problem:
+
+  I'd like to simplify code by putting connection in the constructor, but error occurs that default connection won't be established correctly. so I need to get connection in all of the methods.
+
+  ```typescript
+  @provide("userService")
+  export class UserService implements IUserService {
+    connection: Connection;
+
+    constructor() {
+      // It doesn't work!
+      this.connection = getConnection();
+    }
+
+    async insertUser() {
+      console.log("===insertUser Service Invoked===");
+      // I need to repeat this in every method...
+      const connection = getConnection();
+      const result = connection.manager.insert(User, initialData(5));
+      return result;
+    }
+
+  }
+  ```
+
+  见鬼了怎么搞都不行

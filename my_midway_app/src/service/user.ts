@@ -1,17 +1,19 @@
 import { provide } from "midway";
-import { Connection, getConnection } from "typeorm";
+import { Container } from "typedi";
+import { Connection, getConnection, useContainer } from "typeorm";
 import { User } from "../entity/user";
 import { initialData } from "../helper/init";
 import { IUserService, searchConditions, IUTMock } from "../interface";
 
-// import { InjectRepository } from "typeorm-typedi-extensions";
+useContainer(Container);
 
 @provide("userService")
 export class UserService implements IUserService {
   connection: Connection;
+
   constructor() {
     // @InjectRepository(User) private readonly userRepository: Repository<User>
-    // this.userRepository = userRepository;
+    this.connection = getConnection();
   }
   async uTMockService(id: number): Promise<IUTMock> {
     return new Promise<IUTMock>((resolve) => {
@@ -35,8 +37,10 @@ export class UserService implements IUserService {
   async insertUser() {
     console.log("===insertUser Service Invoked===");
     const connection = getConnection();
+    // const res2 = await this.userRepository.insert(initialData(5));
+    // console.log(res2);
     const result = connection.manager.insert(User, initialData(5));
-    console.log(result);
+    // console.log(result);
     return result;
   }
 

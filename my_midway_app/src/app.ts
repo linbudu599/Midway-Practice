@@ -14,12 +14,11 @@ class AppBootHook {
 
   async willReady() {
     console.log("===TypeORM Starting===");
-    createConnection()
+    createConnection("default")
       .then(async (connection) => {
         // insert initialize user info
         console.log("DataBase Connected");
-        const res = await connection.manager.insert(User, initialData(5));
-        console.log(res);
+        await connection.manager.insert(User, initialData(5));
         console.log("Operation Successed");
       })
       .catch((error) => console.log(error));
