@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^26.0.13",
     "@types/node": "^13.13.2",
     "jest": "^25.4.0",
     "midway": "^1.0.0",
