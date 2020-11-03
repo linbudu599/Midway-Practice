@@ -5,7 +5,7 @@
   "dependencies": {
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.2",
-    "jest": "^25.4.0",
+    "jest": "^26.6.2",
     "midway": "^1.0.0",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
